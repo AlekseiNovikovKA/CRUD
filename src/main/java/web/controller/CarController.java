@@ -11,7 +11,8 @@ import web.service.CarServiseImpl;
 public class CarController {
 private CarService carService = new CarServiseImpl();
     @GetMapping(value = "/cars")
-    public String carsPage(@RequestParam(value = "count", required = false) int count, ModelMap model) {
+    public String carsPage(@RequestParam(required = false) Integer count, ModelMap model) {
+        count = count == null ? 5 : count;
         model.addAttribute("car", carService.listCars(count));
         return "cars";
     }
