@@ -1,15 +1,23 @@
 package web.model;
 
+import javax.persistence.*;
 import javax.validation.constraints.*;
-
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
     @NotEmpty(message = "Введите имя")
     @Size(min = 2, max = 30, message = "Имя должно содержать от 2 до 30 символов")
     private String name;
+    @Column(name = "last_name")
     @NotEmpty(message = "Введите фамилию")
     @Size(min = 2, max = 30, message = "Фамилия должно содержать от 2 до 30 символов")
     private String lastName;
+
+    @Column
     @NotNull(message = "Введите возраст")
     @Min(value = 0, message = "Возраст не может быть отрицательным")
     @Max(value = 127, message = "Возраст превышает максимальный предел")
@@ -18,13 +26,6 @@ public class User {
     public User() { }
 
     public User(String name, String lastName, Byte age) {
-        this.name = name;
-        this.lastName = lastName;
-        this.age = age;
-    }
-
-    public User(Long id, String name, String lastName, Byte age) {
-        this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.age = age;
